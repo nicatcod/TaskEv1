@@ -50,6 +50,7 @@ public class AuthorController {
             return ResponseEntity.ok(authorMapper.toDTO(authorService.save(author)));
         } else {
             return ResponseEntity.notFound().build();
+
         }
     }
 
