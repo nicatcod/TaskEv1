@@ -37,7 +37,16 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<BookDTO> createBook(@Valid @RequestBody BookDTO bookDTO) {
+        if (bookDTO.getAuthorId() == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
         Book book = bookMapper.toEntity(bookDTO);
+
+        if (bookService.getAuthorById(bookDTO.getAuthorId()) == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
         return new ResponseEntity<>(bookMapper.toDTO(bookService.save(book)), HttpStatus.CREATED);
     }
 

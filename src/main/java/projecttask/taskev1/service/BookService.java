@@ -1,7 +1,9 @@
 package projecttask.taskev1.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import projecttask.taskev1.entity.Author;
 import projecttask.taskev1.entity.Book;
+import projecttask.taskev1.repository.AuthorRepository;
 import projecttask.taskev1.repository.BookRepository;
 
 import java.util.List;
@@ -12,7 +14,8 @@ public class BookService {
 
     @Autowired
     private BookRepository bookRepository;
-
+    @Autowired
+    private AuthorRepository authorRepository;
     public List<Book> findAll() {
         return bookRepository.findAll();
     }
@@ -23,6 +26,9 @@ public class BookService {
 
     public Book save(Book book) {
         return bookRepository.save(book);
+    }
+    public Author getAuthorById(Long id) {
+        return authorRepository.findById(id).orElse(null);
     }
 
     public void delete(Long id) {
